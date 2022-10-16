@@ -4,6 +4,7 @@ import { checkResultErrors, EventFragment, Fragment, FunctionFragment, Indexed, 
 import { Block, BlockTag, Filter, FilterByBlockHash, Listener, Log, Provider, TransactionReceipt, TransactionRequest, TransactionResponse } from "@ethersproject/abstract-provider";
 import { Signer, VoidSigner } from "@ethersproject/abstract-signer";
 import { getAddress, getContractAddress } from "@ethersproject/address";
+import { generateContractAddress } from "qtum-ethers-wrapper";
 import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
 import { arrayify, BytesLike, concat, hexlify, isBytes, isHexString } from "@ethersproject/bytes";
 import { Deferrable, defineReadOnly, deepCopy, getStatic, resolveProperties, shallowCopy } from "@ethersproject/properties";
@@ -822,6 +823,7 @@ export class BaseContract {
 
     // @TODO: Allow timeout?
     deployed(): Promise<Contract> {
+        console.log("DEPLOYEEED????")
         return this._deployed();
     }
 
@@ -839,7 +841,10 @@ export class BaseContract {
                 // up to that many blocks for getCode
 
                 // Otherwise, poll for our code to be deployed
+                console.log("TRANS1", this)
                 this._deployedPromise = this.provider.getCode(this.address, blockTag).then((code) => {
+                    console.log("TRANS2", this)
+                    console.log("ADDRESS2", this.address)
                     if (code === "0x") {
                         logger.throwError("contract not deployed", Logger.errors.UNSUPPORTED_OPERATION, {
                             contractAddress: this.address,
@@ -1245,9 +1250,11 @@ export class ContractFactory {
 
         // Send the deployment transaction
         const tx = await this.signer.sendTransaction(unsignedTx);
-
-        const address = getStatic<(tx: TransactionResponse) => string>(this.constructor, "getContractAddress")(tx);
+        console.log("sendTransaction", tx)
+        const address = `0x${generateContractAddress(tx.hash.split("0x")[1])}`;
+        // const address = getStatic<(tx: TransactionResponse) => string>(this.constructor, "getContractAddress")(tx);
         const contract = getStatic<(address: string, contractInterface: ContractInterface, signer?: Signer) => Contract>(this.constructor, "getContract")(address, this.interface, this.signer);
+        console.log("address getStatic", address)
 
         // Add the modified wait that wraps events
         addContractWait(contract, tx);

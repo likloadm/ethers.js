@@ -343,7 +343,7 @@ export class Formatter {
             transaction.accessList = [ ];
         }
 
-        const result: TransactionResponse = Formatter.check(this.formats.transaction, transaction);
+        const result: TransactionResponse = transaction;
 
         if (transaction.chainId != null) {
             let chainId = transaction.chainId;

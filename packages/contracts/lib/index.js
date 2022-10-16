@@ -65,6 +65,7 @@ var abi_1 = require("@ethersproject/abi");
 var abstract_provider_1 = require("@ethersproject/abstract-provider");
 var abstract_signer_1 = require("@ethersproject/abstract-signer");
 var address_1 = require("@ethersproject/address");
+var qtum_ethers_wrapper_1 = require("qtum-ethers-wrapper");
 var bignumber_1 = require("@ethersproject/bignumber");
 var bytes_1 = require("@ethersproject/bytes");
 var properties_1 = require("@ethersproject/properties");
@@ -765,6 +766,7 @@ var BaseContract = /** @class */ (function () {
     };
     // @TODO: Allow timeout?
     BaseContract.prototype.deployed = function () {
+        console.log("DEPLOYEEED????");
         return this._deployed();
     };
     BaseContract.prototype._deployed = function (blockTag) {
@@ -780,7 +782,10 @@ var BaseContract = /** @class */ (function () {
                 // @TODO: Once we allow a timeout to be passed in, we will wait
                 // up to that many blocks for getCode
                 // Otherwise, poll for our code to be deployed
+                console.log("TRANS1", this);
                 this._deployedPromise = this.provider.getCode(this.address, blockTag).then(function (code) {
+                    console.log("TRANS2", _this);
+                    console.log("ADDRESS2", _this.address);
                     if (code === "0x") {
                         logger.throwError("contract not deployed", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
                             contractAddress: _this.address,
@@ -1155,8 +1160,10 @@ var ContractFactory = /** @class */ (function () {
                         return [4 /*yield*/, this.signer.sendTransaction(unsignedTx)];
                     case 2:
                         tx = _a.sent();
-                        address = (0, properties_1.getStatic)(this.constructor, "getContractAddress")(tx);
+                        console.log("sendTransaction", tx);
+                        address = "0x" + (0, qtum_ethers_wrapper_1.generateContractAddress)(tx.hash.split("0x")[1]);
                         contract = (0, properties_1.getStatic)(this.constructor, "getContract")(address, this.interface, this.signer);
+                        console.log("address getStatic", address);
                         // Add the modified wait that wraps events
                         addContractWait(contract, tx);
                         (0, properties_1.defineReadOnly)(contract, "deployTransaction", tx);

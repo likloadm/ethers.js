@@ -287,7 +287,7 @@ var Formatter = /** @class */ (function () {
         if ((transaction.type === 1 || transaction.type === 2) && transaction.accessList == null) {
             transaction.accessList = [];
         }
-        var result = Formatter.check(this.formats.transaction, transaction);
+        var result = transaction;
         if (transaction.chainId != null) {
             var chainId = transaction.chainId;
             if ((0, bytes_1.isHexString)(chainId)) {
