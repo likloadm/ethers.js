@@ -19,7 +19,6 @@
     "url": "git://github.com/ethers-io/ethers.js.git"
   },
   "scripts": {
-    "install": "npm run build",
     "preinstall": "npm run bootstrap-hoist",
     "postinstall": "node ./misc/admin/lib/cmds/update-depgraph && npm run bootstrap-link",
     "bootstrap-hoist": "node ./misc/admin/lib/cmds/hoist",
