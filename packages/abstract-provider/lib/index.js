@@ -77,15 +77,17 @@ exports.ForkEvent = ForkEvent;
 var BlockForkEvent = /** @class */ (function (_super) {
     __extends(BlockForkEvent, _super);
     function BlockForkEvent(blockHash, expiry) {
+        var _this = this;
         if (!(0, bytes_1.isHexString)(blockHash, 32)) {
             logger.throwArgumentError("invalid blockHash", "blockHash", blockHash);
         }
-        return _super.call(this, {
+        _this = _super.call(this, {
             _isForkEvent: true,
             _isBlockForkEvent: true,
             expiry: (expiry || 0),
             blockHash: blockHash
         }) || this;
+        return _this;
     }
     return BlockForkEvent;
 }(ForkEvent));
@@ -93,15 +95,17 @@ exports.BlockForkEvent = BlockForkEvent;
 var TransactionForkEvent = /** @class */ (function (_super) {
     __extends(TransactionForkEvent, _super);
     function TransactionForkEvent(hash, expiry) {
+        var _this = this;
         if (!(0, bytes_1.isHexString)(hash, 32)) {
             logger.throwArgumentError("invalid transaction hash", "hash", hash);
         }
-        return _super.call(this, {
+        _this = _super.call(this, {
             _isForkEvent: true,
             _isTransactionForkEvent: true,
             expiry: (expiry || 0),
             hash: hash
         }) || this;
+        return _this;
     }
     return TransactionForkEvent;
 }(ForkEvent));
@@ -109,19 +113,21 @@ exports.TransactionForkEvent = TransactionForkEvent;
 var TransactionOrderForkEvent = /** @class */ (function (_super) {
     __extends(TransactionOrderForkEvent, _super);
     function TransactionOrderForkEvent(beforeHash, afterHash, expiry) {
+        var _this = this;
         if (!(0, bytes_1.isHexString)(beforeHash, 32)) {
             logger.throwArgumentError("invalid transaction hash", "beforeHash", beforeHash);
         }
         if (!(0, bytes_1.isHexString)(afterHash, 32)) {
             logger.throwArgumentError("invalid transaction hash", "afterHash", afterHash);
         }
-        return _super.call(this, {
+        _this = _super.call(this, {
             _isForkEvent: true,
             _isTransactionOrderForkEvent: true,
             expiry: (expiry || 0),
             beforeHash: beforeHash,
             afterHash: afterHash
         }) || this;
+        return _this;
     }
     return TransactionOrderForkEvent;
 }(ForkEvent));

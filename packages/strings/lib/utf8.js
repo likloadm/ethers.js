@@ -44,7 +44,7 @@ var Utf8ErrorReason;
 })(Utf8ErrorReason = exports.Utf8ErrorReason || (exports.Utf8ErrorReason = {}));
 ;
 function errorFunc(reason, offset, bytes, output, badCodepoint) {
-    return logger.throwArgumentError("invalid codepoint at offset ".concat(offset, "; ").concat(reason), "bytes", bytes);
+    return logger.throwArgumentError("invalid codepoint at offset " + offset + "; " + reason, "bytes", bytes);
 }
 function ignoreFunc(reason, offset, bytes, output, badCodepoint) {
     // If there is an invalid prefix (including stray continuation), skip any additional continuation bytes
