@@ -17,7 +17,11 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -458,7 +462,7 @@ var ArgParser = /** @class */ (function () {
                 break;
             }
             if (arg.substring(0, 2) === "--") {
-                throw new UsageError("unexpected option " + arg);
+                throw new UsageError("unexpected option ".concat(arg));
             }
             args.push(arg);
         }
@@ -522,7 +526,7 @@ var ArgParser = /** @class */ (function () {
     ArgParser.prototype.consumeOption = function (name) {
         var options = this.consumeOptions(name);
         if (options.length > 1) {
-            throw new UsageError("expected at most one --" + name);
+            throw new UsageError("expected at most one --".concat(name));
         }
         return (options.length ? options[0] : null);
     };
@@ -588,7 +592,7 @@ function loadAccount(arg, plugin, preventFile) {
                                     var password, progressBar;
                                     return __generator(this, function (_a) {
                                         switch (_a.label) {
-                                            case 0: return [4 /*yield*/, (0, prompt_1.getPassword)("Password (" + arg + "): ")];
+                                            case 0: return [4 /*yield*/, (0, prompt_1.getPassword)("Password (".concat(arg, "): "))];
                                             case 1:
                                                 password = _a.sent();
                                                 progressBar = (0, prompt_1.getProgressBar)("Decrypting");
@@ -674,7 +678,7 @@ var Plugin = /** @class */ (function () {
                             var mnemonicPath = argParser.consumeOption("mnemonic-path");
                             if (mnemonicPath) {
                                 if (mnemonicPath.match(/^[0-9]+$/)) {
-                                    return "m/44'/60'/" + mnemonicPath + "'/0/0";
+                                    return "m/44'/60'/".concat(mnemonicPath, "'/0/0");
                                 }
                                 return mnemonicPath;
                             }
@@ -910,7 +914,7 @@ var CLI = /** @class */ (function () {
         console.log("Usage:");
         if (this.standAlone) {
             var help = ethers_1.ethers.utils.getStatic(this.standAlone, "getHelp")();
-            console.log("   " + CLI.getAppName() + " " + help.name + " [ OPTIONS ]");
+            console.log("   ".concat(CLI.getAppName(), " ").concat(help.name, " [ OPTIONS ]"));
             console.log("");
             var lines_1 = [];
             var optionHelp = ethers_1.ethers.utils.getStatic(this.standAlone, "getOptionHelp")();
@@ -927,11 +931,11 @@ var CLI = /** @class */ (function () {
         }
         else {
             if (this.defaultCommand) {
-                console.log("   " + CLI.getAppName() + " [ COMMAND ] [ ARGS ] [ OPTIONS ]");
+                console.log("   ".concat(CLI.getAppName(), " [ COMMAND ] [ ARGS ] [ OPTIONS ]"));
                 console.log("");
             }
             else {
-                console.log("   " + CLI.getAppName() + " COMMAND [ ARGS ] [ OPTIONS ]");
+                console.log("   ".concat(CLI.getAppName(), " COMMAND [ ARGS ] [ OPTIONS ]"));
                 console.log("");
             }
             var lines_2 = [];
@@ -957,7 +961,7 @@ var CLI = /** @class */ (function () {
             }
             if (lines_2.length) {
                 if (this.defaultCommand) {
-                    console.log("COMMANDS (default: " + this.defaultCommand + ")");
+                    console.log("COMMANDS (default: ".concat(this.defaultCommand, ")"));
                 }
                 else {
                     console.log("COMMANDS");

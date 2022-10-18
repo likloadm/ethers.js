@@ -226,7 +226,7 @@ var Eip1193Bridge = /** @class */ (function (_super) {
                     case 40:
                         result = _b.sent();
                         return [2 /*return*/, coerce(result)];
-                    case 41: return [2 /*return*/, throwUnsupported("unsupported method: " + method)];
+                    case 41: return [2 /*return*/, throwUnsupported("unsupported method: ".concat(method))];
                 }
             });
         });

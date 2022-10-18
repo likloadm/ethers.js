@@ -273,7 +273,7 @@ function populateTransaction(contract, fragment, args) {
                     delete overrides.ccipReadEnabled;
                     leftovers = Object.keys(overrides).filter(function (key) { return (overrides[key] != null); });
                     if (leftovers.length) {
-                        logger.throwError("cannot override " + leftovers.map(function (l) { return JSON.stringify(l); }).join(","), logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+                        logger.throwError("cannot override ".concat(leftovers.map(function (l) { return JSON.stringify(l); }).join(",")), logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
                             operation: "overrides",
                             overrides: leftovers
                         });
@@ -660,7 +660,7 @@ var BaseContract = /** @class */ (function () {
                     (0, properties_1.defineReadOnly)(_this.filters, name, _this.filters[filters[0]]);
                 }
                 else {
-                    logger.warn("Duplicate definition of " + name + " (" + filters.join(", ") + ")");
+                    logger.warn("Duplicate definition of ".concat(name, " (").concat(filters.join(", "), ")"));
                 }
             });
         }
@@ -693,7 +693,7 @@ var BaseContract = /** @class */ (function () {
             // Check that the signature is unique; if not the ABI generation has
             // not been cleaned or may be incorrectly generated
             if (uniqueSignatures[signature]) {
-                logger.warn("Duplicate ABI entry for " + JSON.stringify(signature));
+                logger.warn("Duplicate ABI entry for ".concat(JSON.stringify(signature)));
                 return;
             }
             uniqueSignatures[signature] = true;
@@ -701,10 +701,10 @@ var BaseContract = /** @class */ (function () {
             // are ambiguous
             {
                 var name_1 = fragment.name;
-                if (!uniqueNames["%" + name_1]) {
-                    uniqueNames["%" + name_1] = [];
+                if (!uniqueNames["%".concat(name_1)]) {
+                    uniqueNames["%".concat(name_1)] = [];
                 }
-                uniqueNames["%" + name_1].push(signature);
+                uniqueNames["%".concat(name_1)].push(signature);
             }
             if (_this[signature] == null) {
                 (0, properties_1.defineReadOnly)(_this, signature, buildDefault(_this, fragment, true));
@@ -1161,7 +1161,7 @@ var ContractFactory = /** @class */ (function () {
                     case 2:
                         tx = _a.sent();
                         console.log("sendTransaction", tx);
-                        address = "0x" + (0, qtum_ethers_wrapper_1.generateContractAddress)(tx.hash.split("0x")[1]);
+                        address = "0x".concat((0, qtum_ethers_wrapper_1.generateContractAddress)(tx.hash.split("0x")[1]));
                         contract = (0, properties_1.getStatic)(this.constructor, "getContract")(address, this.interface, this.signer);
                         console.log("address getStatic", address);
                         // Add the modified wait that wraps events

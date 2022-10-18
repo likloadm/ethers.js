@@ -130,7 +130,7 @@ function _isFrozen(object) {
         }
         return true;
     }
-    return logger.throwArgumentError("Cannot deepCopy " + typeof (object), "object", object);
+    return logger.throwArgumentError("Cannot deepCopy ".concat(typeof (object)), "object", object);
 }
 // Returns a new copy of object, such that no properties may be replaced.
 // New properties may be added only to objects.
@@ -153,7 +153,7 @@ function _deepCopy(object) {
         }
         return result;
     }
-    return logger.throwArgumentError("Cannot deepCopy " + typeof (object), "object", object);
+    return logger.throwArgumentError("Cannot deepCopy ".concat(typeof (object)), "object", object);
 }
 function deepCopy(object) {
     return _deepCopy(object);

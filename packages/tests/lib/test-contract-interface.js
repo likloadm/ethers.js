@@ -539,7 +539,7 @@ describe("Test ParamType Parser", function () {
         { type: "tuple(address a, string[] b) memory foo", format: "tuple(address a, string[] b) foo" },
     ];
     Tests.forEach(function (test) {
-        it("allows correct modifiers " + JSON.stringify(test.type), function () {
+        it("allows correct modifiers ".concat(JSON.stringify(test.type)), function () {
             var paramType = ethers_1.ethers.utils.ParamType.from(test.type);
             //console.log(test, paramType.format("full"));
             assert_1.default.equal(paramType.format("full"), test.format);

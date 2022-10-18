@@ -283,7 +283,7 @@ function getIpfsLink(link) {
     else {
         logger.throwArgumentError("unsupported IPFS format", "link", link);
     }
-    return "https://gateway.ipfs.io/ipfs/" + link;
+    return "https://gateway.ipfs.io/ipfs/".concat(link);
 }
 function numPad(value) {
     var result = (0, bytes_1.arrayify)(value);
@@ -414,8 +414,8 @@ var Resolver = /** @class */ (function () {
     Resolver.prototype._getAddress = function (coinType, hexBytes) {
         var coinInfo = coinInfos[String(coinType)];
         if (coinInfo == null) {
-            logger.throwError("unsupported coin type: " + coinType, logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
-                operation: "getAddress(" + coinType + ")"
+            logger.throwError("unsupported coin type: ".concat(coinType), logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+                operation: "getAddress(".concat(coinType, ")")
             });
         }
         if (coinInfo.ilk === "eth") {
@@ -500,7 +500,7 @@ var Resolver = /** @class */ (function () {
                         address = this._getAddress(coinType, hexBytes);
                         if (address == null) {
                             logger.throwError("invalid or unsupported coin data", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
-                                operation: "getAddress(" + coinType + ")",
+                                operation: "getAddress(".concat(coinType, ")"),
                                 coinType: coinType,
                                 data: hexBytes
                             });
@@ -894,7 +894,7 @@ var BaseProvider = /** @class */ (function (_super) {
                         errorMessage = (result.message || "unknown error");
                         // 4xx indicates the result is not present; stop
                         if (result.status >= 400 && result.status < 500) {
-                            return [2 /*return*/, logger.throwError("response not found during CCIP fetch: " + errorMessage, logger_1.Logger.errors.SERVER_ERROR, { url: url, errorMessage: errorMessage })];
+                            return [2 /*return*/, logger.throwError("response not found during CCIP fetch: ".concat(errorMessage), logger_1.Logger.errors.SERVER_ERROR, { url: url, errorMessage: errorMessage })];
                         }
                         // 5xx indicates server issue; try the next url
                         errorMessages.push(errorMessage);
@@ -902,7 +902,7 @@ var BaseProvider = /** @class */ (function (_super) {
                     case 3:
                         i++;
                         return [3 /*break*/, 1];
-                    case 4: return [2 /*return*/, logger.throwError("error encountered during CCIP fetch: " + errorMessages.map(function (m) { return JSON.stringify(m); }).join(", "), logger_1.Logger.errors.SERVER_ERROR, {
+                    case 4: return [2 /*return*/, logger.throwError("error encountered during CCIP fetch: ".concat(errorMessages.map(function (m) { return JSON.stringify(m); }).join(", ")), logger_1.Logger.errors.SERVER_ERROR, {
                             urls: urls,
                             errorMessages: errorMessages
                         })];
@@ -1020,7 +1020,7 @@ var BaseProvider = /** @class */ (function (_super) {
                             this._emitted.block = blockNumber - 1;
                         }
                         if (Math.abs((this._emitted.block) - blockNumber) > 1000) {
-                            logger.warn("network block skew detected; skipping block events (emitted=" + this._emitted.block + " blockNumber" + blockNumber + ")");
+                            logger.warn("network block skew detected; skipping block events (emitted=".concat(this._emitted.block, " blockNumber").concat(blockNumber, ")"));
                             this.emit("error", logger.makeError("network block skew detected", logger_1.Logger.errors.NETWORK_ERROR, {
                                 blockNumber: blockNumber,
                                 event: "blockSkew",
@@ -1978,7 +1978,7 @@ var BaseProvider = /** @class */ (function (_super) {
                         address = _a.sent();
                         if (address == null) {
                             logger.throwError("ENS name not configured", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
-                                operation: "resolveName(" + JSON.stringify(addressOrName) + ")"
+                                operation: "resolveName(".concat(JSON.stringify(addressOrName), ")")
                             });
                         }
                         return [2 /*return*/, address];

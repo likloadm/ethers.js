@@ -78,7 +78,7 @@ function getTransactionPostData(transaction) {
         }
         else if (key === "accessList") {
             value = "[" + (0, transactions_1.accessListify)(value).map(function (set) {
-                return "{address:\"" + set.address + "\",storageKeys:[\"" + set.storageKeys.join('","') + "\"]}";
+                return "{address:\"".concat(set.address, "\",storageKeys:[\"").concat(set.storageKeys.join('","'), "\"]}");
             }).join(",") + "]";
         }
         else {
@@ -242,15 +242,15 @@ var EtherscanProvider = /** @class */ (function (_super) {
         var query = Object.keys(params).reduce(function (accum, key) {
             var value = params[key];
             if (value != null) {
-                accum += "&" + key + "=" + value;
+                accum += "&".concat(key, "=").concat(value);
             }
             return accum;
         }, "");
-        var apiKey = ((this.apiKey) ? "&apikey=" + this.apiKey : "");
-        return this.baseUrl + "/api?module=" + module + query + apiKey;
+        var apiKey = ((this.apiKey) ? "&apikey=".concat(this.apiKey) : "");
+        return "".concat(this.baseUrl, "/api?module=").concat(module).concat(query).concat(apiKey);
     };
     EtherscanProvider.prototype.getPostUrl = function () {
-        return this.baseUrl + "/api";
+        return "".concat(this.baseUrl, "/api");
     };
     EtherscanProvider.prototype.getPostData = function (module, params) {
         params.module = module;
@@ -286,7 +286,7 @@ var EtherscanProvider = /** @class */ (function (_super) {
                         if (payload) {
                             connection.headers = { "content-type": "application/x-www-form-urlencoded; charset=UTF-8" };
                             payloadStr = Object.keys(payload).map(function (key) {
-                                return key + "=" + payload[key];
+                                return "".concat(key, "=").concat(payload[key]);
                             }).join("&");
                         }
                         return [4 /*yield*/, (0, web_1.fetchJson)(connection, payloadStr, procFunc || getJsonResult)];

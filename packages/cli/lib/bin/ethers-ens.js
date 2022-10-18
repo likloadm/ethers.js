@@ -1325,7 +1325,7 @@ function formatDate(date) {
         date.getFullYear(),
         zpad(date.getMonth() + 1, 2),
         zpad(date.getDate(), 2)
-    ].join("-") + (" (" + count + " days from now)");
+    ].join("-") + " (".concat(count, " days from now)");
 }
 var RenewPlugin = /** @class */ (function (_super) {
     __extends(RenewPlugin, _super);
@@ -1410,7 +1410,7 @@ var RenewPlugin = /** @class */ (function (_super) {
                         args.forEach(function (arg) {
                             var comps = arg.split(".");
                             if (comps.length !== 2 || comps[1] !== "eth") {
-                                _this.throwError("name not supported " + JSON.stringify(arg));
+                                _this.throwError("name not supported ".concat(JSON.stringify(arg)));
                             }
                             labels.push(comps[0]);
                         });
@@ -1444,20 +1444,20 @@ var RenewPlugin = /** @class */ (function (_super) {
                     case 5:
                         expiration = (_a.sent()).toNumber();
                         if (expiration === 0) {
-                            this.throwError("not registered: " + label);
+                            this.throwError("not registered: ".concat(label));
                         }
                         duration = this.duration ? this.duration : this.getDuration(expiration, this.until);
                         if (duration < 0) {
-                            this.throwError("bad duration: " + duration);
+                            this.throwError("bad duration: ".concat(duration));
                         }
                         return [4 /*yield*/, ethController.rentPrice(label, duration)];
                     case 6:
                         fee = (_a.sent()).mul(11).div(10);
-                        this.dump("Renew: " + label + ".eth", {
+                        this.dump("Renew: ".concat(label, ".eth"), {
                             "Current Expiry": formatDate(new Date(expiration * 1000)),
-                            "Duration": (duration / (24 * 60 * 60)) + " days",
+                            "Duration": "".concat((duration / (24 * 60 * 60)), " days"),
                             "Until": formatDate(new Date((expiration + duration) * 1000)),
-                            "Fee": ethers_1.ethers.utils.formatEther(fee) + " (+10% buffer)",
+                            "Fee": "".concat(ethers_1.ethers.utils.formatEther(fee), " (+10% buffer)"),
                         });
                         return [4 /*yield*/, ethController.renew(label, duration, {
                                 value: fee

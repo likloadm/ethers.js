@@ -194,8 +194,8 @@ var Logger = /** @class */ (function () {
                 messageDetails.push(key + "=" + JSON.stringify(params[key].toString()));
             }
         });
-        messageDetails.push("code=" + code);
-        messageDetails.push("version=" + this.version);
+        messageDetails.push("code=".concat(code));
+        messageDetails.push("version=".concat(this.version));
         var reason = message;
         var url = "";
         switch (code) {

@@ -446,7 +446,7 @@ var FallbackProvider = /** @class */ (function (_super) {
             }
             var weight = config.weight;
             if (weight % 1 || weight > 512 || weight < 1) {
-                logger.throwArgumentError("invalid weight; must be integer in [1, 512]", "providers[" + index + "].weight", weight);
+                logger.throwArgumentError("invalid weight; must be integer in [1, 512]", "providers[".concat(index, "].weight"), weight);
             }
             return Object.freeze(config);
         });

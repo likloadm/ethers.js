@@ -127,7 +127,7 @@ function getUrl(href, options) {
                             break;
                         default:
                             /* istanbul ignore next */
-                            logger.throwError("unsupported protocol " + url.protocol, logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+                            logger.throwError("unsupported protocol ".concat(url.protocol), logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
                                 protocol: url.protocol,
                                 operation: "request"
                             });
