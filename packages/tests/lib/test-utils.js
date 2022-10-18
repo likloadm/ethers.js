@@ -1,11 +1,7 @@
 'use strict';
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -280,13 +276,13 @@ describe('Test Namehash', function () {
         assert_1.default.ok(!ethers_1.ethers.utils.isValidName(""));
     });
     goodNames.forEach(function (name) {
-        it("ENS namehash ok - ".concat(name), function () {
+        it("ENS namehash ok - " + name, function () {
             assert_1.default.ok(ethers_1.ethers.utils.isValidName(name));
             ethers_1.ethers.utils.namehash(name);
         });
     });
     badNames.forEach(function (name) {
-        it("ENS namehash fails - ".concat(name), function () {
+        it("ENS namehash fails - " + name, function () {
             assert_1.default.ok(!ethers_1.ethers.utils.isValidName(name));
             assert_1.default.throws(function () {
                 var namehash = ethers_1.ethers.utils.namehash(name);
@@ -316,7 +312,7 @@ describe('Test ID Hash Functions', function () {
 describe('Test Solidity Hash Functions', function () {
     var tests = (0, testcases_1.loadTests)('solidity-hashes');
     function test(funcName, testKey) {
-        it("computes ".concat(funcName, " correctly"), function () {
+        it("computes " + funcName + " correctly", function () {
             this.timeout(120000);
             tests.forEach(function (test, index) {
                 var actual = (ethers_1.ethers.utils)['solidity' + funcName](test.types, test.values);
@@ -338,7 +334,7 @@ describe('Test Solidity Hash Functions', function () {
         "purple" // invalid type
     ];
     testsInvalid.forEach(function (type) {
-        it("disallows invalid type \"".concat(type, "\""), function () {
+        it("disallows invalid type \"" + type + "\"", function () {
             assert_1.default.throws(function () {
                 ethers_1.ethers.utils.solidityPack([type], ["0x12"]);
             }, function (error) {
@@ -521,7 +517,7 @@ describe("Test nameprep", function () {
             if (test.output) {
                 var expected = ethers_1.ethers.utils.toUtf8String(test.output);
                 var actual = ethers_1.ethers.utils.nameprep(input);
-                assert_1.default.equal(actual, expected, "actual(\"".concat(getHex(actual), "\") !== expected(\"").concat(getHex(expected), "\")"));
+                assert_1.default.equal(actual, expected, "actual(\"" + getHex(actual) + "\") !== expected(\"" + getHex(expected) + "\")");
             }
             else {
                 var ok = true;
@@ -529,7 +525,7 @@ describe("Test nameprep", function () {
                 try {
                     var actual = ethers_1.ethers.utils.nameprep(input);
                     console.log(actual);
-                    reason = "should has thrown ".concat(test.rc, " - actual(\"").concat(getHex(actual), "\")");
+                    reason = "should has thrown " + test.rc + " - actual(\"" + getHex(actual) + "\")";
                     ok = false;
                 }
                 catch (error) {
@@ -580,9 +576,9 @@ describe("Test Typed Transactions", function () {
         return true;
     }
     function equalsArray(name, a, b, equals) {
-        assert_1.default.equal(a.length, b.length, "".concat(name, ".length"));
+        assert_1.default.equal(a.length, b.length, name + ".length");
         for (var i = 0; i < a.length; i++) {
-            if (!equals("".concat(name, "[").concat(i, "]"), a[i], b[i])) {
+            if (!equals(name + "[" + i + "]", a[i], b[i])) {
                 return false;
             }
         }
@@ -594,36 +590,36 @@ describe("Test Typed Transactions", function () {
         };
     }
     function equalsAccessList(name, a, b) {
-        return equalsArray("".concat(name, "-address"), a.map(function (f) { return f.address; }), b.map(function (f) { return f.address; }), equalsData) &&
-            equalsArray("".concat(name, "-storageKeys"), a.map(function (f) { return f.storageKeys; }), b.map(function (f) { return f.storageKeys; }), makeEqualsArray(equalsData));
+        return equalsArray(name + "-address", a.map(function (f) { return f.address; }), b.map(function (f) { return f.address; }), equalsData) &&
+            equalsArray(name + "-storageKeys", a.map(function (f) { return f.storageKeys; }), b.map(function (f) { return f.storageKeys; }), makeEqualsArray(equalsData));
     }
     function allowNull(name, a, b, equals) {
         if (a == null) {
-            assert_1.default.ok(b == null, "".concat(name, ":!NULL"));
+            assert_1.default.ok(b == null, name + ":!NULL");
             return true;
         }
         else if (b == null) {
-            assert_1.default.fail("".concat(name, ":!!NULL"));
+            assert_1.default.fail(name + ":!!NULL");
         }
         return equals(name, a, b);
     }
     function equalsCommonTransaction(name, a, b) {
-        return equalsNumber("".concat(name, "-type"), a.type, b.type, 0) &&
-            equalsData("".concat(name, "-data"), a.data, b.data, "0x") &&
-            equalsNumber("".concat(name, "-gasLimit"), a.gasLimit, b.gasLimit, 0) &&
-            equalsNumber("".concat(name, "-nonce"), a.nonce, b.nonce, 0) &&
-            allowNull("".concat(name, "-to"), a.to, b.to, equalsData) &&
-            equalsNumber("".concat(name, "-value"), a.value, b.value, 0) &&
-            equalsNumber("".concat(name, "-chainId"), a.chainId, b.chainId, 0) &&
-            equalsAccessList("".concat(name, "-accessList"), a.accessList, b.accessList || []);
+        return equalsNumber(name + "-type", a.type, b.type, 0) &&
+            equalsData(name + "-data", a.data, b.data, "0x") &&
+            equalsNumber(name + "-gasLimit", a.gasLimit, b.gasLimit, 0) &&
+            equalsNumber(name + "-nonce", a.nonce, b.nonce, 0) &&
+            allowNull(name + "-to", a.to, b.to, equalsData) &&
+            equalsNumber(name + "-value", a.value, b.value, 0) &&
+            equalsNumber(name + "-chainId", a.chainId, b.chainId, 0) &&
+            equalsAccessList(name + "-accessList", a.accessList, b.accessList || []);
     }
     function equalsEip1559Transaction(name, a, b) {
-        return equalsNumber("".concat(name, "-maxPriorityFeePerGas"), a.maxPriorityFeePerGas, b.maxPriorityFeePerGas, 0) &&
-            equalsNumber("".concat(name, "-maxFeePerGas"), a.maxFeePerGas, b.maxFeePerGas, 0) &&
+        return equalsNumber(name + "-maxPriorityFeePerGas", a.maxPriorityFeePerGas, b.maxPriorityFeePerGas, 0) &&
+            equalsNumber(name + "-maxFeePerGas", a.maxFeePerGas, b.maxFeePerGas, 0) &&
             equalsCommonTransaction(name, a, b);
     }
     function equalsEip2930Transaction(name, a, b) {
-        return equalsNumber("".concat(name, "-gasPrice"), a.gasPrice, b.gasPrice, 0) &&
+        return equalsNumber(name + "-gasPrice", a.gasPrice, b.gasPrice, 0) &&
             equalsCommonTransaction(name, a, b);
     }
     function equalsTransaction(name, a, b) {
@@ -633,7 +629,7 @@ describe("Test Typed Transactions", function () {
             case 2:
                 return equalsEip1559Transaction(name, a, b);
         }
-        assert_1.default.fail("unknown transaction type ".concat(a.type));
+        assert_1.default.fail("unknown transaction type " + a.type);
     }
     tests.forEach(function (test, index) {
         it(test.name, function () {
@@ -696,7 +692,7 @@ describe("BigNumber", function () {
         { value: "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", expected: "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" },
         { value: "-0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", expected: "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" },
     ].forEach(function (test) {
-        it("absolute value (".concat(test.value, ")"), function () {
+        it("absolute value (" + test.value + ")", function () {
             var value = ethers_1.ethers.BigNumber.from(test.value);
             var expected = ethers_1.ethers.BigNumber.from(test.expected);
             assert_1.default.ok(value.abs().eq(expected));
@@ -729,7 +725,7 @@ describe("FixedNumber", function () {
             { value: -1, expected: "-1.0" },
         ];
         Tests.forEach(function (test) {
-            it("Create from=".concat(test.value), function () {
+            it("Create from=" + test.value, function () {
                 var value = ethers_1.ethers.FixedNumber.from(test.value);
                 assert_1.default.equal(value.toString(), test.expected);
             });
@@ -753,7 +749,7 @@ describe("FixedNumber", function () {
             { value: "1.55", round: 1, expected: "1.6" },
         ];
         Tests.forEach(function (test) {
-            it("Rounding value=".concat(test.value, ", decimals=").concat(test.round), function () {
+            it("Rounding value=" + test.value + ", decimals=" + test.round, function () {
                 var value = ethers_1.ethers.FixedNumber.from(test.value).round(test.round);
                 assert_1.default.equal(value.toString(), test.expected);
             });
@@ -769,7 +765,7 @@ describe("FixedNumber", function () {
             { value: "-1.9", ceiling: "-1.0", floor: "-2.0" },
         ];
         Tests.forEach(function (test) {
-            it("Clamping value=".concat(test.value), function () {
+            it("Clamping value=" + test.value, function () {
                 var value = ethers_1.ethers.FixedNumber.from(test.value);
                 assert_1.default.equal(value.floor().toString(), test.floor);
                 assert_1.default.equal(value.ceiling().toString(), test.ceiling);
@@ -825,7 +821,7 @@ describe("Web Fetch", function() {
 describe("EIP-712", function () {
     var tests = (0, testcases_1.loadTests)("eip712");
     tests.forEach(function (test) {
-        it("encoding ".concat(test.name), function () {
+        it("encoding " + test.name, function () {
             var encoder = ethers_1.ethers.utils._TypedDataEncoder.from(test.types);
             assert_1.default.equal(encoder.primaryType, test.primaryType, "instance.primaryType");
             assert_1.default.equal(encoder.encode(test.data), test.encoded, "instance.encode()");
@@ -838,7 +834,7 @@ describe("EIP-712", function () {
         if (!test.privateKey) {
             return;
         }
-        it("signing ".concat(test.name), function () {
+        it("signing " + test.name, function () {
             return __awaiter(this, void 0, void 0, function () {
                 var wallet, signature;
                 return __generator(this, function (_a) {
@@ -868,10 +864,10 @@ function _deepEquals(a, b, path) {
             return "{ path }:!isArray(b)";
         }
         if (a.length !== b.length) {
-            return "{ path }:a.length[".concat(a.length, "]!=b.length[").concat(b.length, "]");
+            return "{ path }:a.length[" + a.length + "]!=b.length[" + b.length + "]";
         }
         for (var i = 0; i < a.length; i++) {
-            var reason = _deepEquals(a[i], b[i], "".concat(path, ":").concat(i));
+            var reason = _deepEquals(a[i], b[i], path + ":" + i);
             if (reason != null) {
                 return reason;
             }
@@ -880,22 +876,22 @@ function _deepEquals(a, b, path) {
     }
     if (a.eq) {
         if (!b.eq) {
-            return "".concat(path, ":typeof(b)!=BigNumber");
+            return path + ":typeof(b)!=BigNumber";
         }
-        return a.eq(b) ? null : "".concat(path, ":!a.eq(b)");
+        return a.eq(b) ? null : path + ":!a.eq(b)";
     }
     if (a != null && typeof (a) === "object") {
         if (b != null && typeof (b) !== "object") {
-            return "".concat(path, ":typeof(b)!=object");
+            return path + ":typeof(b)!=object";
         }
         var keys = Object.keys(a), otherKeys = Object.keys(b);
         keys.sort();
         otherKeys.sort();
         if (keys.length !== otherKeys.length) {
-            return "".concat(path, ":keys(a)[").concat(keys.join(","), "]!=keys(b)[").concat(otherKeys.join(","), "]");
+            return path + ":keys(a)[" + keys.join(",") + "]!=keys(b)[" + otherKeys.join(",") + "]";
         }
         for (var key in a) {
-            var reason = _deepEquals(a[key], b[key], "".concat(path, ":").concat(key));
+            var reason = _deepEquals(a[key], b[key], path + ":" + key);
             if (reason != null) {
                 return reason;
             }
@@ -903,7 +899,7 @@ function _deepEquals(a, b, path) {
         return null;
     }
     if (a !== b) {
-        return "".concat(path, "[").concat(a, " != ").concat(b, "]");
+        return path + "[" + a + " != " + b + "]";
     }
     return null;
 }
@@ -970,7 +966,7 @@ describe("EIP-2930", function () {
         },
     ];
     Tests.forEach(function (test) {
-        it("tx:".concat(test.hash), function () {
+        it("tx:" + test.hash, function () {
             var tx = ethers_1.ethers.utils.parseTransaction(test.data);
             assert_1.default.equal(tx.hash, test.hash);
             var reason = deepEquals(tx, test.tx);
